@@ -13,11 +13,7 @@ function SidebarHeader({ handleOnClick }) {
       <Heading as="h3" size="md">
         Messages
       </Heading>
-      <Button
-        colorScheme="green"
-        leftIcon={<RiChatSmile2Line size={20} color="white" />}
-        onClick={handleOnClick}
-      >
+      <Button leftIcon={<RiChatSmile2Line size={20} />} onClick={handleOnClick}>
         New Conversation
       </Button>
     </HStack>

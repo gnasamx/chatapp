@@ -1,4 +1,7 @@
-import { Route, Switch } from 'react-router-dom';
+import { Box, Divider } from '@chakra-ui/react';
+import { Switch } from 'react-router-dom';
+import ContentHeader from '../components/content-header';
+import ContentMessages from '../components/content-messages';
 
 const routes = [
   {
@@ -21,18 +24,21 @@ const routes = [
 
 function Content() {
   return (
-    <div style={{ flex: 1, padding: '10px' }}>
+    <Box width="full" height='100vh'>
+      <ContentHeader />
+      <Divider />
+      <ContentMessages />
       <Switch>
-        {routes.map((route, index) => (
+        {/* {routes.map((route, index) => (
           <Route
             key={index}
             path={route.path}
             exact={route.exact}
             children={<route.main />}
           />
-        ))}
+        ))} */}
       </Switch>
-    </div>
+    </Box>
   );
 }
 

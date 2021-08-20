@@ -1,20 +1,21 @@
-import { ChakraProvider, theme } from '@chakra-ui/react';
+import { ChakraProvider, Divider, HStack, theme } from '@chakra-ui/react';
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import Layout from './components/layout';
-import Sidebar from './components/sidebar';
+import { BrowserRouter } from 'react-router-dom';
+import Content from './layouts/content';
+import Sidebar from './layouts/sidebar';
 import { UiProvider } from './contexts/ui-context';
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <UiProvider>
-        <Router>
-          <div style={{ display: 'flex' }}>
+        <BrowserRouter>
+          <HStack height="100vh" width="full" spacing={0}>
             <Sidebar />
-            <Layout />
-          </div>
-        </Router>
+            <Divider orientation="vertical" />
+            <Content />
+          </HStack>
+        </BrowserRouter>
       </UiProvider>
     </ChakraProvider>
   );

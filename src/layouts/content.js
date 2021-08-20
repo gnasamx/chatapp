@@ -19,7 +19,7 @@ const routes = [
   },
 ];
 
-function Layout() {
+function Content() {
   return (
     <div style={{ flex: 1, padding: '10px' }}>
       <Switch>
@@ -36,4 +36,4 @@ function Layout() {
   );
 }
 
-export default Layout;
+export default Content;

@@ -1,7 +1,8 @@
-import { Box, Divider } from '@chakra-ui/react';
-import { Switch } from 'react-router-dom';
+import { Box, Divider, VStack } from '@chakra-ui/react';
 import ContentHeader from '../components/content-header';
 import ContentMessages from '../components/content-messages';
+import InoutMessageBox from '../components/input-message-box';
+import SidebarConversation from '../components/sidebar-conversation';
 
 const routes = [
   {
@@ -24,12 +25,12 @@ const routes = [
 
 function Content() {
   return (
-    <Box width="full" height='100vh'>
+    <VStack width="full" height="full" alignItems="flex-start" spacing={0}>
       <ContentHeader />
       <Divider />
       <ContentMessages />
-      <Switch>
-        {/* {routes.map((route, index) => (
+      {/* <Switch> */}
+      {/* {routes.map((route, index) => (
           <Route
             key={index}
             path={route.path}
@@ -37,8 +38,16 @@ function Content() {
             children={<route.main />}
           />
         ))} */}
-      </Switch>
-    </Box>
+      <Box
+        flexGrow={1}
+        padding={3}
+        height="full"
+        width="full"
+        overflowY="scroll"
+      ></Box>
+      {/* </Switch> */}
+      <InoutMessageBox />
+    </VStack>
   );
 }
 

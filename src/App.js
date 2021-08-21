@@ -10,7 +10,7 @@ function App() {
     <ChakraProvider theme={theme}>
       <UiProvider>
         <BrowserRouter>
-          <HStack height="100vh" width="full" spacing={0} overflow="hidden">
+          <HStack height="100vh" spacing={0}>
             <Sidebar />
             <Divider orientation="vertical" />
             <Content />

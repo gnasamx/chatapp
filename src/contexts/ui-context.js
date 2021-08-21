@@ -7,7 +7,7 @@ const actions = {
   add_me: 'add-me',
 };
 
-function uiReducer(state, action) {
+function UiReduce(state, action) {
   switch (action.type) {
     case actions.start_new_conversation: {
       return { ...state, users: [action.user, ...state.users] };
@@ -27,7 +27,7 @@ const initialState = {
 };
 
 function UiProvider({ children }) {
-  const [state, dispatch] = useReducer(uiReducer, initialState);
+  const [state, dispatch] = useReducer(UiReduce, initialState);
 
   const startANewConversation = user =>
     dispatch({ type: actions.start_new_conversation, user });
@@ -46,4 +46,4 @@ function useUi() {
   return context;
 }
 
-export { UiProvider, useUi };
+export { UiProvider, UiContext, useUi };

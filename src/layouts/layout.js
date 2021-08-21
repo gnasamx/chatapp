@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Center,
   Divider,
   FormControl,
   FormHelperText,
@@ -14,23 +13,31 @@ import {
 } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import { useRef } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { ChatProvider } from '../contexts/chat-context';
 import { useUi } from '../contexts/ui-context';
 import { isEmptyObject } from '../utils/checks';
 import { uuid } from '../utils/uuid';
 import Content from './content';
 import Sidebar from './sidebar';
 
-function ChatLayout() {
+function ChatLayout({ users }) {
   return (
     <>
       <Sidebar />
       <Divider orientation="vertical" />
-      <Content />
+      <Switch>
+        <Route exact path="/:userId">
+          <ChatProvider>
+            <Content />
+          </ChatProvider>
+        </Route>
+      </Switch>
     </>
   );
 }
 
-function Login() {
+function CreateAccount() {
   const nameRef = useRef();
   const { createAccount } = useUi();
 
@@ -56,8 +63,8 @@ function Login() {
           </Text>
         </Box>
         <FormControl id="me">
-          <FormLabel>Name</FormLabel>
-          <Input type="text" ref={nameRef} placeholder="Firstname Lastname" />
+          <FormLabel>Full Name</FormLabel>
+          <Input type="text" ref={nameRef} placeholder="John Doe" />
           <FormHelperText>
             Set your name - however you'd like people to refer to you.
           </FormHelperText>
@@ -75,11 +82,11 @@ function Login() {
 }
 
 function Layout() {
-  const { me } = useUi();
+  const { me, users } = useUi();
 
   return (
     <HStack width="full" height="100vh" spacing={0}>
-      {isEmptyObject(me) ? <Login /> : <ChatLayout />}
+      {isEmptyObject(me) ? <CreateAccount /> : <ChatLayout users={users} />}
     </HStack>
   );
 }

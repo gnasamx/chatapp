@@ -1,5 +1,4 @@
 import { Box, Center, Text, VStack } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
 import SidebarConversation from '../components/sidebar-conversation';
 import SidebarHeader from '../components/sidebar-header';
 import SidebarSearch from '../components/sidebar-search';
@@ -22,18 +21,6 @@ function Sidebar() {
       ) : (
         users?.map(user => <SidebarConversation key={user.id} {...user} />)
       )}
-
-      {/* <ul style={{ listStyleType: 'none', padding: 0 }}>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/bubblegum">Bubblegum</Link>
-        </li>
-        <li>
-          <Link to="/shoelaces">Shoelaces</Link>
-        </li>
-      </ul> */}
     </VStack>
   );
 }

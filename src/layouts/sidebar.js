@@ -1,5 +1,4 @@
-import { Button, Heading, HStack, VStack } from '@chakra-ui/react';
-import { RiChatSmile2Line } from 'react-icons/ri';
+import { Box, Center, Text, VStack } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import SidebarConversation from '../components/sidebar-conversation';
 import SidebarHeader from '../components/sidebar-header';
@@ -7,22 +6,24 @@ import SidebarSearch from '../components/sidebar-search';
 import { useUi } from '../contexts/ui-context';
 
 function Sidebar() {
-  const { state, startANewConversation } = useUi();
-  const handleOnClick = () => {
-    startANewConversation({ name: 'Ganesh', thumbnail: 'apple/animoji' });
-  };
-  console.log({ state });
+  const { users } = useUi();
 
   return (
-    <VStack alignItems="flex-start" height="100vh" width="sm" spacing={0}>
-      <SidebarHeader handleOnClic={handleOnClick} />
+    <VStack alignItems="flex-start" height="100vh" width="30%" spacing={0}>
+      <SidebarHeader />
       <SidebarSearch />
-      <SidebarConversation />
-      <SidebarConversation />
-      <SidebarConversation />
-      <SidebarConversation />
-      <SidebarConversation />
-      <ul style={{ listStyleType: 'none', padding: 0 }}>
+
+      {users.length === 0 ? (
+        <Box padding={3} width="full">
+          <Center>
+            <Text>Add friends to chat</Text>
+          </Center>
+        </Box>
+      ) : (
+        users?.map(user => <SidebarConversation key={user.id} {...user} />)
+      )}
+
+      {/* <ul style={{ listStyleType: 'none', padding: 0 }}>
         <li>
           <Link to="/">Home</Link>
         </li>
@@ -32,7 +33,7 @@ function Sidebar() {
         <li>
           <Link to="/shoelaces">Shoelaces</Link>
         </li>
-      </ul>
+      </ul> */}
     </VStack>
   );
 }

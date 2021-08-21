@@ -1,19 +1,33 @@
-import { Avatar, Box, HStack, Text } from '@chakra-ui/react';
+import {
+  Avatar,
+  Box,
+  HStack,
+  LinkBox,
+  LinkOverlay,
+  Text,
+} from '@chakra-ui/react';
+import dayjs from 'dayjs';
+import { Link } from 'react-router-dom';
+const relativeTime = require('dayjs/plugin/relativeTime');
 
-function SidebarConversation() {
+dayjs.extend(relativeTime);
+
+function SidebarConversation({ name, url }) {
   return (
-    <HStack padding={3} width="full" alignItems="flex-start">
-      <Avatar name="Georges Durverger" />
+    <LinkBox as={HStack} padding={3} width="full" alignItems="flex-start">
+      <Avatar name={name} />
       <Box overflow="hidden" flexGrow={1}>
-        <Text fontWeight="semibold">Georges Duverger</Text>
+        <LinkOverlay as={Link} to={url}>
+          <Text fontWeight="semibold">{name}</Text>
+        </LinkOverlay>
         <Text color="gray.600" isTruncated>
           For example, if
         </Text>
       </Box>
       <Box flexShrink={0}>
-        <Text color="gray.600">Jul 26</Text>
+        <Text color="gray.600">Feb, 21</Text>
       </Box>
-    </HStack>
+    </LinkBox>
   );
 }
 export default SidebarConversation;

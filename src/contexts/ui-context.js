@@ -19,7 +19,7 @@ const actions = {
   set_initial_context: 'set_initial_context',
 };
 
-function UiReduce(state, { type, users, currentuser }) {
+function UiReduce(state, { type, users = [], currentuser = '' }) {
   switch (type) {
     case actions.set_initial_context: {
       return {

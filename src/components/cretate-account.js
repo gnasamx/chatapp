@@ -66,7 +66,6 @@ function CreateAccount({ setCurrentuser }) {
               ref={nameRef}
               placeholder="John Doe"
               name="fullname"
-              defaultValue="Ganesh Pawar"
             />
             <FormHelperText>
               Set your name - however you'd like people to refer to you.
@@ -79,7 +78,6 @@ function CreateAccount({ setCurrentuser }) {
               ref={contactNumberRef}
               placeholder="9988776655"
               name="contactNumber"
-              defaultValue="9988776655"
             />
           </FormControl>
           <Button colorScheme="green" marginTop={10} type="submit">

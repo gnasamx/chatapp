@@ -1,11 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useReducer,
-} from 'react';
-import useCurrentUser from '../hooks/use-currentuser';
+import { createContext, useCallback, useContext, useReducer } from 'react';
 import { useUsers } from '../use-persisted-state';
 
 const UiContext = createContext();
@@ -44,7 +37,7 @@ function UiProvider({ children }) {
       currentuser,
       users,
     });
-  }, []);
+  }, [users]);
 
   const value = { ...state, setCtxCurrentuser };
   return <UiContext.Provider value={value}>{children}</UiContext.Provider>;
@@ -52,8 +45,6 @@ function UiProvider({ children }) {
 
 function useUi() {
   const context = useContext(UiContext);
-
-  console.log('use ui context: ', context);
 
   if (context === undefined) {
     throw new Error('useUi must be used within a UiProvider');

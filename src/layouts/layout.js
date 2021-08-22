@@ -29,7 +29,6 @@ function Layout() {
   const { setCtxCurrentuser } = useUi();
 
   useEffect(() => {
-    console.log('Layout currentuser: ', currentuser);
     setCtxCurrentuser(currentuser);
   }, [currentuser]);
 

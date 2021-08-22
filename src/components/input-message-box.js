@@ -22,7 +22,6 @@ function InoutMessageBox() {
     }
   };
 
-  console.log('Conversations: ', { conversations });
   return (
     <Box borderTopColor="gray.200" borderTopWidth={1} width="full" padding={3}>
       <HStack>

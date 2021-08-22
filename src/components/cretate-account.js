@@ -34,8 +34,6 @@ function CreateAccount({ setCurrentuser }) {
 
     const userIsAlreadyRegistered = !!users?.find(user => user.id === id);
 
-    console.log({ userIsAlreadyRegistered });
-
     if (!userIsAlreadyRegistered) {
       const updatedUsers =
         Array.isArray(users) && users.length ? users.concat(user) : [user];
@@ -45,7 +43,7 @@ function CreateAccount({ setCurrentuser }) {
     } else if (userIsAlreadyRegistered) {
       setCurrentuser(id);
     } else {
-      console.log('Clear cache, Reopen widnow and try again!');
+      console.error('Clear cache, Reopen widnow and try again!');
     }
   };
 

@@ -1,7 +1,11 @@
-import { Box } from '@chakra-ui/react';
+import { Box, VStack } from '@chakra-ui/react';
 
-function ContentMessages() {
-  return <Box flexGrow={1} width="full" backgroundColor="green.200"></Box>;
+function ContentMessages({ children }) {
+  return (
+    <Box padding={3} height="full" overflowY="scroll">
+      <VStack>{children}</VStack>
+    </Box>
+  );
 }
 
 export default ContentMessages;

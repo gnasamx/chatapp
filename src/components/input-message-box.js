@@ -32,6 +32,7 @@ function InoutMessageBox() {
         />
         <IconButton
           isRound
+          colorScheme="green"
           icon={<BiSend size={20} />}
           onClick={handleMessageSend}
         />

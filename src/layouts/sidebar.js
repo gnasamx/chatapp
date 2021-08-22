@@ -35,7 +35,7 @@ function Sidebar() {
             key={user?.id}
             {...user}
             lastMessage={
-              conversations?.[ctxCurrentuser]?.[user?.id][
+              conversations?.[ctxCurrentuser]?.[user?.id]?.[
                 conversations?.[ctxCurrentuser]?.[user?.id].length - 1
               ]
             }

@@ -12,7 +12,6 @@ function UserListItem({
       as="button"
       textAlign="left"
       width="full"
-      key={id}
       paddingX={4}
       paddingY={3}
       borderRadius="lg"

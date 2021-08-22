@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { useChat } from '../contexts/chat-context';
 
 function InoutMessageBox() {
-  const { conversations, sendANewMessage } = useChat();
+  const { sendANewMessage } = useChat();
   const messageRef = useRef();
   const { userId } = useParams();
 

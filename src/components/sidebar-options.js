@@ -19,7 +19,7 @@ function SidebarOptions({ ctxCurrentuser }) {
 
   const handleSignOut = () => {
     setCurrentuser('');
-    window.location.reload();
+    window.location = '/';
   };
 
   useEffect(() => {

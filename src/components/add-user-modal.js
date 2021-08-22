@@ -11,39 +11,42 @@ import {
   ModalOverlay,
   VStack,
 } from '@chakra-ui/react';
-import dayjs from 'dayjs';
 import { useEffect, useRef, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { useUi } from '../contexts/ui-context';
-import { uuid } from '../utils/uuid';
+import { useConversations } from '../use-persisted-state';
 import UserListItem from './user-list-item';
 
 function AddUserModal({ isOpen, onClose }) {
   const searchRef = useRef();
-  const { ctxUsers } = useUi();
+  const { ctxUsers, ctxCurrentuser } = useUi();
   const [selectedUser, setSelectedUser] = useState();
   const [filteredUsers, setFilteredUsers] = useState();
+
+  const [conversations, setConversations] = useConversations();
 
   useEffect(() => {
     setFilteredUsers(ctxUsers);
   }, [ctxUsers]);
 
   const handleStartConversation = () => {
-    console.log('handleStartConversation');
-    const timestamp = dayjs().format();
-    const id = uuid(timestamp);
+    setConversations({
+      ...conversations,
+      [ctxCurrentuser]: {
+        ...conversations[ctxCurrentuser],
+        [selectedUser]: [],
+      },
+    });
+
     onClose();
     reset();
   };
-
-  console.log({ ctxUsers, filteredUsers });
 
   const handleUserSelection = id => {
     setSelectedUser(id);
   };
 
   const handleUserFilterChange = e => {
-    console.log(e.target.value);
     if (!searchRef.current.value) setFilteredUsers(ctxUsers);
     else {
       setFilteredUsers(
@@ -57,7 +60,6 @@ function AddUserModal({ isOpen, onClose }) {
   };
 
   const reset = () => {
-    console.log('reset');
     setSelectedUser(undefined);
     searchRef.current.value = '';
     setFilteredUsers(ctxUsers);
@@ -102,6 +104,16 @@ function AddUserModal({ isOpen, onClose }) {
         </ModalBody>
 
         <ModalFooter>
+          <Button
+            variant="ghost"
+            mr={3}
+            onClick={() => {
+              reset();
+              onClose();
+            }}
+          >
+            Close
+          </Button>
           <Button
             colorScheme={filteredUsers?.length === 0 ? 'gray' : 'green'}
             onClick={

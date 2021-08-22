@@ -22,7 +22,7 @@ function Sidebar() {
 
   return (
     <VStack alignItems="flex-start" height="100vh" width="md" spacing={0}>
-      <SidebarHeader />
+      <SidebarHeader ctxCurrentuser={ctxCurrentuser} />
       <SidebarSearch />
 
       {usersList?.length === 0 ? (

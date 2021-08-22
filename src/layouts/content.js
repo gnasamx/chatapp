@@ -7,25 +7,34 @@ import ContentHeader from '../components/content-header';
 import ContentMessages from '../components/content-messages';
 import InoutMessageBox from '../components/input-message-box';
 import { useUi } from '../contexts/ui-context';
-import { useUsers } from '../use-persisted-state';
+import { useConversations } from '../use-persisted-state';
 
 function Content() {
   const { userId } = useParams();
   const { ctxUsers, ctxCurrentuser } = useUi();
   const [recipient, setRecipient] = useState();
-  // const [users] = useUsers();
+  const [conversations] = useConversations();
 
   useEffect(() => {
-    const recipient = ctxUsers.find(user => user.id === userId);
+    const recipient = ctxUsers?.find(user => user.id === userId);
     setRecipient(recipient);
-    // const me = users.find(user => user.id === ctxCurrentuser);
   }, [ctxUsers, userId]);
+
+  console.log(conversations?.[ctxCurrentuser]?.[recipient?.id]);
 
   return (
     <VStack width="full" height="full" alignItems="flex-start" spacing={0}>
       <ContentHeader recipient={recipient} />
       <Divider />
-      <ContentMessages>{/* Append messages */}</ContentMessages>
+      <ContentMessages>
+        {conversations?.[ctxCurrentuser]?.[recipient?.id]?.map(message => {
+          if (message.me === ctxCurrentuser) {
+            return <ChatBubbleMe key={message?.sentAt} {...message} />;
+          } else {
+            return <ChatBubbleYou key={message?.sentAt} {...message} />;
+          }
+        })}
+      </ContentMessages>
       <InoutMessageBox ctxCurrentuser={ctxCurrentuser} recipient={recipient} />
     </VStack>
   );

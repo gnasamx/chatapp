@@ -1,6 +1,7 @@
 import { Box, Text } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 
-function ChatBubbleYou({ children }) {
+function ChatBubbleYou({ text, sentAt }) {
   return (
     <Box maxWidth="60%" alignSelf="flex-start">
       <Box
@@ -10,10 +11,10 @@ function ChatBubbleYou({ children }) {
         borderRightRadius="2xl"
         borderTopRadius="2xl"
       >
-        {children}
+        {text}
       </Box>
       <Text fontSize="sm" color="gray.600">
-        Feb 12, 7.51 AM
+        {dayjs(sentAt).format('MMM DD, hh:mm A')}
       </Text>
     </Box>
   );

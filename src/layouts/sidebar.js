@@ -12,7 +12,7 @@ function Sidebar() {
       <SidebarHeader />
       <SidebarSearch />
 
-      {users.length === 0 ? (
+      {users?.length === 0 ? (
         <Box padding={3} width="full">
           <Center>
             <Text>Add friends to chat</Text>

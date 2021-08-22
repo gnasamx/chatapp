@@ -12,31 +12,56 @@ import {
 import dayjs from 'dayjs';
 import { useRef } from 'react';
 import { useUi } from '../contexts/ui-context';
+import { useUsers } from '../use-persisted-state';
 import { uuid } from '../utils/uuid';
 
-function CreateAccount() {
+function CreateAccount({ setWindowName }) {
   const nameRef = useRef();
   const contactNumberRef = useRef();
   const { createAccount } = useUi();
+  const [users, setUsers] = useUsers();
 
-  const handleCreateAccount = () => {
-    const timestamp = dayjs().format();
-    const id = uuid(timestamp);
+  const handleCreateAccount = e => {
+    e.preventDefault();
 
-    createAccount({
+    const id = uuid(contactNumberRef.current.value);
+
+    const user = {
       id: id,
       name: nameRef.current.value,
       contactNumber: contactNumberRef.current.value,
-      createdAt: timestamp,
+      createdAt: dayjs().format(),
       url: id,
-    });
+    };
+
+    // createAccount({
+    //   id: id,
+    //   name: nameRef.current.value,
+    //   contactNumber: contactNumberRef.current.value,
+    //   createdAt: timestamp,
+    //   url: id,
+    // });
+
+    const userIsAlreadyRegistered = !!users?.find(user => user.id === id);
+    console.log({ userIsAlreadyRegistered });
+    if (!userIsAlreadyRegistered) {
+      const updatedUsers =
+        Array.isArray(users) && users.length ? users.concat(user) : [user];
+
+      setUsers(updatedUsers);
+      setWindowName(id);
+    } else if (userIsAlreadyRegistered) {
+      setWindowName(id);
+    } else {
+      console.log('Clear cache, Reopen widnow and try again!');
+    }
   };
 
   return (
     <Box width="full">
       <VStack maxWidth="sm" margin="0 auto" spacing={10}>
         <Box textAlign="center">
-          <Heading marginBottom={3}>Create Account</Heading>
+          <Heading marginBottom={3}>Welcome</Heading>
           <Text fontSize="sm" color="gray.600">
             Don't worry, All your conversations are stored in your system.
           </Text>

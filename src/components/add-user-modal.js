@@ -30,7 +30,6 @@ function AddUserModal({ isOpen, onClose }) {
   }, [ctxUsers]);
 
   const handleStartConversation = () => {
-    console.log({ ctxCurrentuser });
     setConversations({
       ...conversations,
       [ctxCurrentuser]: {

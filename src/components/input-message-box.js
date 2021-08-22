@@ -41,7 +41,6 @@ function InoutMessageBox({ ctxCurrentuser, recipient }) {
     }
   };
 
-  console.log({ conversations });
 
   return (
     <Box borderTopColor="gray.200" borderTopWidth={1} width="full" padding={3}>

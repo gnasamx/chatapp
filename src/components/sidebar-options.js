@@ -2,6 +2,7 @@ import {
   IconButton,
   Menu,
   MenuButton,
+  MenuDivider,
   MenuItem,
   MenuList,
 } from '@chakra-ui/react';
@@ -27,17 +28,19 @@ function SidebarOptions({ ctxCurrentuser }) {
     );
   }, [ctxCurrentuser, users]);
 
-  console.log({ currentuserDetails, ctxCurrentuser, users });
   return (
-    <Menu>
-      <MenuButton as={IconButton} icon={<CgOptions size={20} />} />
-      <MenuList>
-        <MenuItem>
-          {currentuserDetails?.name} ({currentuserDetails?.contactNumber})
-        </MenuItem>
-        <MenuItem onClick={handleSignOut}>Logout</MenuItem>
-      </MenuList>
-    </Menu>
+    <>
+      <Menu>
+        <MenuButton as={IconButton} icon={<CgOptions size={20} />} />
+        <MenuList>
+          <MenuItem>
+            {currentuserDetails?.name} ({currentuserDetails?.contactNumber})
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem onClick={handleSignOut}>Logout</MenuItem>
+        </MenuList>
+      </Menu>
+    </>
   );
 }
 export default SidebarOptions;

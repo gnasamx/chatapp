@@ -11,8 +11,6 @@ function Sidebar() {
   const { ctxCurrentuser, ctxUsers } = useUi();
   const [usersList, setUsersList] = useState([]);
 
-  console.log('conversations:', conversations?.[ctxCurrentuser]);
-
   useEffect(() => {
     const usersList = Object.keys(conversations?.[ctxCurrentuser] || {}).map(
       userId => ctxUsers.find(user => user.id === userId)
@@ -32,7 +30,17 @@ function Sidebar() {
           </Center>
         </Box>
       ) : (
-        usersList?.map(user => <SidebarConversation key={user.id} {...user} />)
+        usersList?.map(user => (
+          <SidebarConversation
+            key={user?.id}
+            {...user}
+            lastMessage={
+              conversations?.[ctxCurrentuser]?.[user?.id][
+                conversations?.[ctxCurrentuser]?.[user?.id].length - 1
+              ]
+            }
+          />
+        ))
       )}
     </VStack>
   );

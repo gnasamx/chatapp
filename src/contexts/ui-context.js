@@ -31,14 +31,16 @@ function UiProvider({ children }) {
   const [state, dispatch] = useReducer(UiReduce, initialState);
   const [users] = useUsers();
 
-  const setCtxCurrentuser = useCallback(currentuser => {
-    dispatch({
-      type: actions.set_initial_context,
-      currentuser,
-      users,
-    });
-  }, [users]);
-
+  const setCtxCurrentuser = useCallback(
+    currentuser => {
+      dispatch({
+        type: actions.set_initial_context,
+        currentuser,
+        users,
+      });
+    },
+    [users]
+  );
   const value = { ...state, setCtxCurrentuser };
   return <UiContext.Provider value={value}>{children}</UiContext.Provider>;
 }

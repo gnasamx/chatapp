@@ -8,11 +8,7 @@ import {
 } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
-const relativeTime = require('dayjs/plugin/relativeTime');
-
-dayjs.extend(relativeTime);
-
-function SidebarConversation({ name, url }) {
+function SidebarConversation({ name, url, lastMessage }) {
   return (
     <LinkBox as={HStack} padding={3} width="full" alignItems="flex-start">
       <Avatar name={name} />
@@ -21,11 +17,13 @@ function SidebarConversation({ name, url }) {
           <Text fontWeight="semibold">{name}</Text>
         </LinkOverlay>
         <Text color="gray.600" isTruncated>
-          For example, if
+          {lastMessage?.text}
         </Text>
       </Box>
       <Box flexShrink={0}>
-        <Text color="gray.600">Feb, 21</Text>
+        <Text color="gray.600">
+          {dayjs(lastMessage?.sentAt).format('hh:mm A')}
+        </Text>
       </Box>
     </LinkBox>
   );

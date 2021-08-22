@@ -2,7 +2,6 @@ import { Divider, HStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import CreateAccount from '../components/cretate-account';
-import { ChatProvider } from '../contexts/chat-context';
 import { useUi } from '../contexts/ui-context';
 import useCurrentuser from '../hooks/use-currentuser';
 import Content from './content';
@@ -15,9 +14,7 @@ function ChatLayout() {
       <Divider orientation="vertical" />
       <Switch>
         <Route exact path="/:userId">
-          <ChatProvider>
-            <Content />
-          </ChatProvider>
+          <Content />
         </Route>
       </Switch>
     </>
@@ -30,6 +27,7 @@ function Layout() {
 
   useEffect(() => {
     setCtxCurrentuser(currentuser);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentuser]);
 
   return (

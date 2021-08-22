@@ -20,11 +20,9 @@ function Content() {
     setRecipient(recipient);
   }, [ctxUsers, userId]);
 
-  console.log(conversations?.[ctxCurrentuser]?.[recipient?.id]);
-
   return (
     <VStack width="full" height="full" alignItems="flex-start" spacing={0}>
-      <ContentHeader recipient={recipient} />
+      <ContentHeader recipient={recipient} ctxCurrentuser={ctxCurrentuser} />
       <Divider />
       <ContentMessages>
         {conversations?.[ctxCurrentuser]?.[recipient?.id]?.map(message => {

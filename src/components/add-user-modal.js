@@ -13,24 +13,16 @@ import {
 } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import { useRef } from 'react';
-import { useUi } from '../contexts/ui-context';
 import { uuid } from '../utils/uuid';
 
 function AddUserModal({ isOpen, onClose }) {
-  const { startANewConversation } = useUi();
   const nameRef = useRef();
 
   const handleClick = () => {
     const timestamp = dayjs().format();
     const id = uuid(timestamp);
 
-    startANewConversation({
-      id: id,
-      name: nameRef.current.value,
-      createdAt: timestamp,
-      url: id,
-    });
-
+    console.log({ id });
     onClose();
   };
 

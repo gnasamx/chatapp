@@ -1,5 +1,4 @@
 import { createContext, useContext, useReducer } from 'react';
-import { UiContext } from './ui-context';
 
 const ChatContext = createContext();
 
@@ -8,9 +7,6 @@ const actions = {
 };
 
 function ChatReducer(state, { type, message }) {
-  const { me } = useContext(UiContext);
-  console.log('ChatReducer: ', { me });
-
   switch (type) {
     case actions.new_message: {
       return {
@@ -19,7 +15,7 @@ function ChatReducer(state, { type, message }) {
           ...state.conversations,
           [message.userId]: {
             ...state.conversations[message.userId],
-            [me.id]: {
+            'me.id': {
               type: message.type,
               text: message.text,
               sentAt: message.sentAt,

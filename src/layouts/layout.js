@@ -4,12 +4,11 @@ import { Route, Switch } from 'react-router-dom';
 import CreateAccount from '../components/cretate-account';
 import { ChatProvider } from '../contexts/chat-context';
 import { useUi } from '../contexts/ui-context';
-import useWindowName from '../hooks/use-window-name';
-import { useUsers } from '../use-persisted-state';
+import useCurrentuser from '../hooks/use-currentuser';
 import Content from './content';
 import Sidebar from './sidebar';
 
-function ChatLayout({ users }) {
+function ChatLayout() {
   return (
     <>
       <Sidebar />
@@ -26,21 +25,20 @@ function ChatLayout({ users }) {
 }
 
 function Layout() {
-  const { me, users } = useUi();
-  const [windowName, setWindowName] = useWindowName(
-    () => (window.name && window.name !== 'undefined' && window.name) || ''
-  );
+  const [currentuser, setCurrentuser] = useCurrentuser();
+  const { setCtxCurrentuser } = useUi();
 
   useEffect(() => {
-    console.log({ windowName });
-  }, [windowName]);
+    console.log('Layout currentuser: ', currentuser);
+    setCtxCurrentuser(currentuser);
+  }, [currentuser]);
 
   return (
     <HStack width="full" height="100vh" spacing={0}>
-      {!!windowName ? (
-        <ChatLayout users={users} />
+      {!!currentuser ? (
+        <ChatLayout users={[]} />
       ) : (
-        <CreateAccount setWindowName={setWindowName} />
+        <CreateAccount setCurrentuser={setCurrentuser} />
       )}
     </HStack>
   );

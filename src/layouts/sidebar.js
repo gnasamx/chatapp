@@ -5,21 +5,21 @@ import SidebarSearch from '../components/sidebar-search';
 import { useUi } from '../contexts/ui-context';
 
 function Sidebar() {
-  const { users } = useUi();
+  const { ctxUsers } = useUi();
 
   return (
     <VStack alignItems="flex-start" height="100vh" width="30%" spacing={0}>
       <SidebarHeader />
       <SidebarSearch />
 
-      {users?.length === 0 ? (
+      {ctxUsers?.length === 0 ? (
         <Box padding={3} width="full">
           <Center>
             <Text>Add friends to chat</Text>
           </Center>
         </Box>
       ) : (
-        users?.map(user => <SidebarConversation key={user.id} {...user} />)
+        ctxUsers?.map(user => <SidebarConversation key={user.id} {...user} />)
       )}
     </VStack>
   );

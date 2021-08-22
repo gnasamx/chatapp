@@ -1,49 +1,64 @@
-import { createContext, useContext, useReducer } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useReducer,
+} from 'react';
+import useCurrentUser from '../hooks/use-currentuser';
+import { useUsers } from '../use-persisted-state';
 
 const UiContext = createContext();
 
-const actions = {
-  start_new_conversation: 'start-a-new-conversation',
-  add_me: 'add-me',
+const initialState = {
+  ctxUsers: [],
+  ctxCurrentuser: {},
 };
 
-function UiReduce(state, action) {
-  switch (action.type) {
-    case actions.start_new_conversation: {
-      return { ...state, users: [action.user, ...state.users] };
-    }
-    case actions.add_me: {
-      return { ...state, me: action.me };
+const actions = {
+  set_initial_context: 'set_initial_context',
+};
+
+function UiReduce(state, { type, users, currentuser }) {
+  switch (type) {
+    case actions.set_initial_context: {
+      return {
+        ...state,
+        ctxCurrentuser: currentuser,
+        ctxUsers: users.filter(user => user.id !== currentuser),
+      };
     }
     default: {
-      throw new Error(`Unhandled action type: ${action.type}`);
+      throw new Error(`Unhandled action type: ${type}`);
     }
   }
 }
 
-const initialState = {
-  users: [],
-  me: {},
-};
-
 function UiProvider({ children }) {
   const [state, dispatch] = useReducer(UiReduce, initialState);
+  const [users] = useUsers();
 
-  const startANewConversation = user =>
-    dispatch({ type: actions.start_new_conversation, user });
+  const setCtxCurrentuser = useCallback(currentuser => {
+    dispatch({
+      type: actions.set_initial_context,
+      currentuser,
+      users,
+    });
+  }, []);
 
-  const createAccount = me => dispatch({ type: actions.add_me, me });
-
-  const value = { ...state, startANewConversation, createAccount };
+  const value = { ...state, setCtxCurrentuser };
   return <UiContext.Provider value={value}>{children}</UiContext.Provider>;
 }
 
 function useUi() {
   const context = useContext(UiContext);
+
+  console.log('use ui context: ', context);
+
   if (context === undefined) {
     throw new Error('useUi must be used within a UiProvider');
   }
   return context;
 }
 
-export { UiProvider, UiContext, useUi };
+export { UiProvider, useUi };

@@ -11,14 +11,12 @@ import {
 } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import { useRef } from 'react';
-import { useUi } from '../contexts/ui-context';
 import { useUsers } from '../use-persisted-state';
 import { uuid } from '../utils/uuid';
 
-function CreateAccount({ setWindowName }) {
+function CreateAccount({ setCurrentuser }) {
   const nameRef = useRef();
   const contactNumberRef = useRef();
-  const { createAccount } = useUi();
   const [users, setUsers] = useUsers();
 
   const handleCreateAccount = e => {
@@ -34,24 +32,18 @@ function CreateAccount({ setWindowName }) {
       url: id,
     };
 
-    // createAccount({
-    //   id: id,
-    //   name: nameRef.current.value,
-    //   contactNumber: contactNumberRef.current.value,
-    //   createdAt: timestamp,
-    //   url: id,
-    // });
-
     const userIsAlreadyRegistered = !!users?.find(user => user.id === id);
+
     console.log({ userIsAlreadyRegistered });
+
     if (!userIsAlreadyRegistered) {
       const updatedUsers =
         Array.isArray(users) && users.length ? users.concat(user) : [user];
 
       setUsers(updatedUsers);
-      setWindowName(id);
+      setCurrentuser(id);
     } else if (userIsAlreadyRegistered) {
-      setWindowName(id);
+      setCurrentuser(id);
     } else {
       console.log('Clear cache, Reopen widnow and try again!');
     }

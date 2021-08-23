@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { CgOptions } from 'react-icons/cg';
+import { useUi } from '../contexts/ui-context';
 import useCurrentUser from '../hooks/use-currentuser';
 import { useUsers } from '../use-persisted-state';
 
@@ -16,10 +17,13 @@ function SidebarOptions({ ctxCurrentuser }) {
   const [currentuserDetails, setCurrentuserDetails] = useState();
   // eslint-disable-next-line no-unused-vars
   const [_, setCurrentuser] = useCurrentUser();
+  const { setCtxCurrentuser } = useUi();
 
   const handleSignOut = () => {
     setCurrentuser('');
-    window.location = '/';
+    setCtxCurrentuser('');
+    window.location.reload();
+    window.location.href = '/';
   };
 
   useEffect(() => {
